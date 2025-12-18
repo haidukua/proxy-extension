@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <style>
+    :root {
+      --bg-color: #121212;
+      --card-bg: #1e1e1e;
+      --text-main: #e4e4e7;
+      --text-dim: #a0a0a0;
+      --accent: #a1a1ad;
+      --input-bg: #2d2d2d;
+      --input-border: #444;
+      --success: #03dac6;
+      --btn: #818cf8;
+      --btn-hover: #9ba5fb;
+    }
+
+    body { 
+      font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
+      width: 340px; 
+      background-color: var(--bg-color); 
+      color: var(--text-main);
+      margin: 0;
+    }
+
+    .card { 
+      background: var(--card-bg); 
+      padding: 20px; 
+    }
+
+    .header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 20px; 
+      border-bottom: 1px solid var(--input-border); 
+      padding-bottom: 15px; 
+    }
+
+    h3 { margin: 0; font-size: 18px; color: var(--accent); letter-spacing: 0.5px; }
+
+    .field { margin-bottom: 18px; }
+
+    label { 
+      display: block; 
+      font-size: 10px; 
+      font-weight: bold; 
+      color: var(--text-dim); 
+      text-transform: uppercase; 
+      margin-bottom: 6px; 
+      letter-spacing: 1px;
+    }
+
+    input, textarea { 
+      width: 100%; 
+      box-sizing: border-box; 
+      padding: 12px; 
+      border: 1px solid var(--input-border); 
+      border-radius: 8px; 
+      font-size: 13px; 
+      background-color: var(--input-bg);
+      color: var(--text-main);
+      outline: none; 
+      transition: border-color 0.2s, box-shadow 0.2s;
+    }
+
+    input:focus, textarea:focus { 
+      border-color: var(--accent); 
+      box-shadow: 0 0 0 2px rgba(187, 134, 252, 0.2);
+    }
+
+    textarea { resize: vertical; min-height: 70px; }
+
+    button { 
+      width: 100%; 
+      cursor: pointer; 
+      background: var(--btn); 
+      border: none; 
+      padding: 14px; 
+      border-radius: 8px; 
+      font-weight: bold; 
+      font-size: 14px; 
+      transition: all 0.2s ease; 
+      text-transform: uppercase;
+    }
+
+    button:hover { 
+      background: var(--btn-hover); 
+    }
+
+    button:active { transform: translateY(0); }
+    
+    /* Переключатель */
+    .switch { position: relative; display: inline-block; width: 44px; height: 24px; margin: 0; }
+    .switch input { opacity: 0; width: 0; height: 0; }
+    .slider { 
+      position: absolute; cursor: pointer; top: 0; left: 0; right: 0; bottom: 0; 
+      background-color: #444; transition: .4s; border-radius: 34px; 
+    }
+    .slider:before { 
+      position: absolute; content: ""; height: 18px; width: 18px; left: 3px; bottom: 3px; 
+      background-color: #ddd; transition: .4s; border-radius: 50%; 
+    }
+    input:checked + .slider { background-color: var(--success); }
+    input:checked + .slider-alt { background-color: var(--btn); }
+    input:checked + .slider:before { transform: translateX(20px); background-color: #fff; }
+    
+    .hint { font-size: 11px; color: var(--text-dim); margin-top: 8px; line-height: 1.4; }
+  </style>
+</head>
+<body>
+<div class="card">
+    <div class="header">
+      <h3>Proxy Settings</h3>
+      <div style="display: flex; gap: 16px;">
+        <label class="switch">
+            <input type="checkbox" id="full">
+            <span class="slider slider-alt"></span>
+        </label>
+        <label class="switch">
+            <input type="checkbox" id="enabled">
+            <span class="slider"></span>
+        </label>
+      </div>
+    </div>
+    
+    <div class="field">
+      <label>Адрес прокси и порт</label>
+      <div style="display: flex; gap: 8px;">
+        <input type="text" id="host" placeholder="например, 1.2.3.4">
+        <input type="text" id="port" placeholder="8080" style="width: 90px;">
+      </div>
+    </div>
+
+    <div class="field">
+      <label>Авторизация (если есть)</label>
+      <input type="text" id="user" placeholder="Логин" style="margin-bottom: 6px;">
+      <input type="password" id="pass" placeholder="Пароль">
+    </div>
+
+    <div class="field">
+      <label>Использовать прокси ТОЛЬКО для:</label>
+      <textarea id="sites" placeholder="google.com, linkedin.com, rutracker.org"></textarea>
+      <div class="hint">Все остальные сайты будут работать напрямую без прокси.</div>
+    </div>
+
+    <button id="save">Сохранить настройки</button>
+  </div>
+
+  <script src="options.js"></script>
+</body>
+</html>
