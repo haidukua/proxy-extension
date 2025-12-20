@@ -57,14 +57,15 @@ function updateProxy() {
 
 // Слушатели (остаются прежними)
 chrome.webRequest.onAuthRequired.addListener(
-  (details) => {
-    return new Promise((resolve) => {
-      chrome.storage.sync.get(['proxyUser', 'proxyPass', 'proxyEnabled'], (data) => {
-        if (data.proxyEnabled && data.proxyUser && data.proxyPass && details.isProxy) {
-          resolve({ authCredentials: { username: data.proxyUser, password: data.proxyPass } });
-        } else { resolve({}); }
-      });
+  (details, callback) => {
+    chrome.storage.sync.get(['proxyUser', 'proxyPass', 'proxyEnabled'], (data) => {
+      if (data.proxyEnabled && data.proxyUser && data.proxyPass && details.isProxy) {
+        callback({ authCredentials: { username: data.proxyUser, password: data.proxyPass } });
+      } else {
+        callback({});
+      }
     });
+    return true;
   },
   { urls: ["<all_urls>"] },
   ["asyncBlocking"]
